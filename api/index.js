@@ -1,25 +1,17 @@
-const express = require('express');
-const cors = require('cors');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 
-const app = express();
 const PORT = process.env.PORT || 5000;
-const JWT_SECRET = 'smart_school_secret_key_2026';
 
-// Middleware
-app.use(cors());
-app.use(express.json());
-
-// Persistent storage (uses /tmp on Vercel lambda, local folder otherwise)
-const isVercel = process.env.VERCEL === '1';
+// Persistent enquiries storage (/tmp for Vercel, local folder otherwise)
+const isVercel = Boolean(process.env.VERCEL);
 const dataFilePath = isVercel
   ? '/tmp/enquiries.json'
   : path.join(__dirname, 'enquiries.json');
 
-// Helper to read enquiries
+// Read enquiries safely
 function getEnquiries() {
   try {
     if (fs.existsSync(dataFilePath)) {
@@ -31,7 +23,7 @@ function getEnquiries() {
   return [];
 }
 
-// Helper to save enquiries
+// Save enquiries safely
 function saveEnquiries(data) {
   try {
     fs.writeFileSync(dataFilePath, JSON.stringify(data, null, 2), 'utf8');
@@ -40,124 +32,158 @@ function saveEnquiries(data) {
   }
 }
 
-// Seed default users
-const users = [
-  {
-    id: 1,
-    name: 'School Administrator',
-    email: 'admin@smartschool.com',
-    password: bcrypt.hashSync('admin123', 10),
-    role: 'admin'
-  },
-  {
-    id: 2,
-    name: 'Rahul Sharma',
-    email: 'student@smartschool.com',
-    password: bcrypt.hashSync('student123', 10),
-    role: 'student',
-    grade: 'Class 10-A',
-    rollNo: 'SCH-1001'
+// Parse request body
+function parseBody(req) {
+  if (req.body && typeof req.body === 'object') return Promise.resolve(req.body);
+  if (typeof req.body === 'string') {
+    try { return Promise.resolve(JSON.parse(req.body)); } catch (_) { return Promise.resolve({}); }
   }
-];
-
-// ==========================================
-// ROUTES
-// ==========================================
-
-// 1. Health Check
-app.get('/api/health', (req, res) => {
-  res.json({
-    status: 'ok',
-    message: 'Smart School API is running smoothly on Vercel!',
-    timestamp: new Date().toISOString()
+  return new Promise((resolve) => {
+    let body = '';
+    req.on('data', chunk => { body += chunk; });
+    req.on('end', () => {
+      try { resolve(JSON.parse(body || '{}')); }
+      catch (_) { resolve({}); }
+    });
+    req.on('error', () => resolve({}));
   });
-});
+}
 
-// 2. Submit Enquiry (POST)
-app.post('/api/enquiries', (req, res) => {
-  const { name, email, phone, grade, message } = req.body;
+// Helper to send JSON response
+function sendJson(res, statusCode, data) {
+  res.setHeader('Content-Type', 'application/json');
+  res.writeHead(statusCode);
+  res.end(JSON.stringify(data));
+}
 
-  if (!name || !name.trim()) {
-    return res.status(400).json({ success: false, error: 'Full name is required.' });
+// Request Handler
+async function handler(req, res) {
+  // Global CORS headers
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+  if (req.method === 'OPTIONS') {
+    res.writeHead(204);
+    return res.end();
   }
 
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!email || !emailRegex.test(email.trim())) {
-    return res.status(400).json({ success: false, error: 'Please enter a valid email address.' });
+  // Parse path (strip query params and normalize /api prefix)
+  const parsedUrl = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
+  const pathname = parsedUrl.pathname.replace(/\/+$/, '') || '/';
+
+  // 1. HEALTH CHECK: GET /api/health
+  if (pathname === '/api/health' || pathname === '/health') {
+    return sendJson(res, 200, {
+      status: 'ok',
+      message: 'Smart School API is running smoothly on Vercel!',
+      timestamp: new Date().toISOString()
+    });
   }
 
-  const phoneDigits = (phone || '').replace(/\D/g, '');
-  if (phoneDigits.length < 10) {
-    return res.status(400).json({ success: false, error: 'Please enter a valid 10-digit phone number.' });
+  // 2. ENQUIRIES: GET /api/enquiries
+  if ((pathname === '/api/enquiries' || pathname === '/enquiries') && req.method === 'GET') {
+    const list = getEnquiries();
+    return sendJson(res, 200, { success: true, count: list.length, enquiries: list });
   }
 
-  const allEnquiries = getEnquiries();
-  const newEnquiry = {
-    id: Date.now(),
-    name: name.trim(),
-    email: email.trim(),
-    phone: phone.trim(),
-    grade: grade || 'General',
-    message: message || '',
-    created_at: new Date().toISOString()
-  };
+  // 3. ENQUIRIES: POST /api/enquiries
+  if ((pathname === '/api/enquiries' || pathname === '/enquiries') && req.method === 'POST') {
+    const body = await parseBody(req);
+    const { name, email, phone, grade, message } = body;
 
-  allEnquiries.unshift(newEnquiry);
-  saveEnquiries(allEnquiries);
-
-  res.status(201).json({
-    success: true,
-    message: 'Enquiry submitted successfully! Our admissions office will get in touch.',
-    id: newEnquiry.id
-  });
-});
-
-// 3. Get All Enquiries (GET)
-app.get('/api/enquiries', (req, res) => {
-  const allEnquiries = getEnquiries();
-  res.json({ success: true, count: allEnquiries.length, enquiries: allEnquiries });
-});
-
-// 4. Login (POST)
-app.post('/api/auth/login', (req, res) => {
-  const { email, password } = req.body;
-
-  if (!email || !password) {
-    return res.status(400).json({ success: false, error: 'Email and password are required.' });
-  }
-
-  const user = users.find(u => u.email.toLowerCase() === email.trim().toLowerCase());
-  if (!user || !bcrypt.compareSync(password, user.password)) {
-    return res.status(401).json({ success: false, error: 'Invalid email or password.' });
-  }
-
-  const token = jwt.sign(
-    { id: user.id, name: user.name, email: user.email, role: user.role },
-    JWT_SECRET,
-    { expiresIn: '24h' }
-  );
-
-  res.json({
-    success: true,
-    message: 'Login successful!',
-    token,
-    user: {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      role: user.role,
-      grade: user.grade || null,
-      rollNo: user.rollNo || null
+    if (!name || !String(name).trim()) {
+      return sendJson(res, 400, { success: false, error: 'Full name is required.' });
     }
-  });
-});
 
-// Listen locally if run with node
-if (!process.env.VERCEL) {
-  app.listen(PORT, () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || !emailRegex.test(String(email).trim())) {
+      return sendJson(res, 400, { success: false, error: 'Please enter a valid email address.' });
+    }
+
+    const phoneDigits = String(phone || '').replace(/\D/g, '');
+    if (phoneDigits.length < 10) {
+      return sendJson(res, 400, { success: false, error: 'Please enter a valid 10-digit phone number.' });
+    }
+
+    const all = getEnquiries();
+    const newEnquiry = {
+      id: Date.now(),
+      name: String(name).trim(),
+      email: String(email).trim(),
+      phone: String(phone).trim(),
+      grade: grade || 'General',
+      message: message ? String(message).trim() : '',
+      created_at: new Date().toISOString()
+    };
+
+    all.unshift(newEnquiry);
+    saveEnquiries(all);
+
+    return sendJson(res, 201, {
+      success: true,
+      message: 'Enquiry submitted successfully! Our admissions office will get in touch.',
+      id: newEnquiry.id
+    });
+  }
+
+  // 4. AUTH: POST /api/auth/login
+  if ((pathname === '/api/auth/login' || pathname === '/auth/login' || pathname === '/login') && req.method === 'POST') {
+    const body = await parseBody(req);
+    const email = String(body.email || body.username || '').trim().toLowerCase();
+    const password = String(body.password || '');
+
+    if (!email || !password) {
+      return sendJson(res, 400, { success: false, error: 'Username/Email and password are required.' });
+    }
+
+    // Check credentials (admin / student)
+    const isAdmin = (email === 'admin@smartschool.com' || email === 'admin') &&
+                    (password === 'admin123' || password === '1234');
+    const isStudent = (email === 'student@smartschool.com' || email === 'student') &&
+                      (password === 'student123');
+
+    if (isAdmin) {
+      const token = crypto.randomBytes(24).toString('hex');
+      return sendJson(res, 200, {
+        success: true,
+        message: 'Admin login successful!',
+        token,
+        user: { id: 1, name: 'School Administrator', email: 'admin@smartschool.com', role: 'admin' }
+      });
+    }
+
+    if (isStudent) {
+      const token = crypto.randomBytes(24).toString('hex');
+      return sendJson(res, 200, {
+        success: true,
+        message: 'Student login successful!',
+        token,
+        user: {
+          id: 2,
+          name: 'Rahul Sharma',
+          email: 'student@smartschool.com',
+          role: 'student',
+          grade: 'Class 10-A',
+          rollNo: 'SCH-1001'
+        }
+      });
+    }
+
+    return sendJson(res, 401, { success: false, error: 'Invalid username or password.' });
+  }
+
+  // Fallback 404 for unknown API routes
+  return sendJson(res, 404, { success: false, error: `Route not found: ${pathname}` });
+}
+
+// Local server execution
+if (!isVercel) {
+  const server = http.createServer(handler);
+  server.listen(PORT, () => {
     console.log(`Smart School Server running locally on http://localhost:${PORT}`);
   });
 }
 
 // Export for Vercel Serverless
-module.exports = app;
+module.exports = handler;

@@ -1,0 +1,222 @@
+/* ========================================
+   BASIC SETTINGS
+======================================== */
+
+* {
+
+    margin: 0;
+
+    padding: 0;
+
+    box-sizing: border-box;
+
+}
+
+
+body {
+
+    font-family: Arial, sans-serif;
+
+    background: #f1f5f9;
+
+    color: #172554;
+
+}
+
+
+/* ========================================
+   HEADER
+======================================== */
+
+header {
+
+    background: #07345a;
+
+    color: white;
+
+    padding: 25px;
+
+    text-align: center;
+
+    box-shadow:
+        0 4px 15px rgba(0,0,0,0.15);
+
+}
+
+
+header h1 {
+
+    font-size: 30px;
+
+}
+
+
+/* ========================================
+   DASHBOARD
+======================================== */
+
+.dashboard {
+
+    width: 90%;
+
+    max-width: 1100px;
+
+    margin: 50px auto;
+
+    text-align: center;
+
+}
+
+
+.dashboard h2 {
+
+    font-size: 32px;
+
+    color: #1d4ed8;
+
+    margin-bottom: 15px;
+
+}
+
+
+.dashboard > p {
+
+    color: #64748b;
+
+    font-size: 17px;
+
+    margin-bottom: 40px;
+
+}
+
+
+/* ========================================
+   CARDS
+======================================== */
+
+.cards {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 25px;
+
+}
+
+
+.card {
+
+    background: white;
+
+    padding: 35px 20px;
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,0.08);
+
+    transition: 0.3s;
+
+}
+
+
+.card:hover {
+
+    transform: translateY(-8px);
+
+    box-shadow:
+        0 15px 30px rgba(0,0,0,0.15);
+
+}
+
+
+.card h3 {
+
+    color: #2563eb;
+
+    font-size: 21px;
+
+    margin-bottom: 12px;
+
+}
+
+
+.card p {
+
+    color: #64748b;
+
+}
+
+
+/* ========================================
+   LOGOUT BUTTON
+======================================== */
+
+.logout-button {
+
+    margin-top: 45px;
+
+    padding: 13px 30px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #dc2626;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+
+}
+
+
+.logout-button:hover {
+
+    background: #b91c1c;
+
+    transform: translateY(-2px);
+
+}
+
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 800px) {
+
+    .cards {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .cards {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .dashboard h2 {
+
+        font-size: 25px;
+
+    }
+
+}

@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Smart School - Login</title>
+
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+            font-family: Arial, sans-serif;
+
+            min-height: 100vh;
+
+            background: linear-gradient(
+                135deg,
+                #dbeafe,
+                #eff6ff,
+                #e0e7ff
+            );
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+        }
+
+
+        /* =========================
+           MAIN LOGIN CONTAINER
+        ========================= */
+
+        .login-container {
+
+            width: 950px;
+
+            max-width: 95%;
+
+            min-height: 570px;
+
+            background: white;
+
+            display: flex;
+
+            border-radius: 25px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+
+
+        /* =========================
+           LEFT SIDE IMAGE
+        ========================= */
+
+        .school-image {
+
+            width: 50%;
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+
+        .school-image img {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: cover;
+
+            transition: transform 0.5s;
+        }
+
+
+        .school-image:hover img {
+
+            transform: scale(1.05);
+        }
+
+
+        /* Dark effect */
+
+        .school-image::after {
+
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 100%;
+
+            background: linear-gradient(
+                to top,
+                rgba(0, 0, 0, 0.70),
+                transparent
+            );
+        }
+
+
+        /* =========================
+           TEXT ON IMAGE
+        ========================= */
+
+        .image-text {
+
+            position: absolute;
+
+            bottom: 40px;
+
+            left: 40px;
+
+            color: white;
+
+            z-index: 2;
+        }
+
+
+        .image-text h1 {
+
+            font-size: 38px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .image-text p {
+
+            font-size: 17px;
+
+            letter-spacing: 2px;
+        }
+
+
+        /* =========================
+           RIGHT LOGIN AREA
+        ========================= */
+
+        .login-box {
+
+            width: 50%;
+
+            padding: 55px 60px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+        }
+
+
+        /* =========================
+           SCHOOL ICON
+        ========================= */
+
+        .school-logo {
+
+            width: 65px;
+
+            height: 65px;
+
+            margin: 0 auto 15px;
+
+            border-radius: 50%;
+
+            background: linear-gradient(
+                135deg,
+                #2563eb,
+                #4f46e5
+            );
+
+            color: white;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            font-size: 28px;
+
+            box-shadow:
+                0 8px 20px rgba(37, 99, 235, 0.3);
+        }
+
+
+        /* =========================
+           HEADING
+        ========================= */
+
+        .login-box h1 {
+
+            text-align: center;
+
+            color: #172554;
+
+            font-size: 30px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .welcome {
+
+            text-align: center;
+
+            color: #777;
+
+            font-size: 14px;
+
+            margin-bottom: 35px;
+        }
+
+
+        /* =========================
+           LABEL
+        ========================= */
+
+        .login-box label {
+
+            display: block;
+
+            color: #333;
+
+            margin-bottom: 8px;
+        }
+
+
+        /* =========================
+           INPUT BOX
+        ========================= */
+
+        .input-box {
+
+            position: relative;
+
+            margin-bottom: 22px;
+        }
+
+
+        .input-box > i:first-child {
+
+            position: absolute;
+
+            left: 15px;
+
+            top: 15px;
+
+            color: #2563eb;
+        }
+
+
+        .input-box input {
+
+            width: 100%;
+
+            height: 48px;
+
+            padding: 0 45px;
+
+            border: 1px solid #d1d5db;
+
+            border-radius: 10px;
+
+            outline: none;
+
+            font-size: 15px;
+
+            transition: 0.3s;
+        }
+
+
+        .input-box input:focus {
+
+            border-color: #2563eb;
+
+            box-shadow:
+                0 0 0 3px rgba(37, 99, 235, 0.12);
+        }
+
+
+        /* =========================
+           SHOW PASSWORD
+        ========================= */
+
+        #showPassword {
+
+            position: absolute;
+
+            right: 15px;
+
+            top: 15px;
+
+            color: #777;
+
+            cursor: pointer;
+        }
+
+
+        /* =========================
+           LOGIN OPTIONS
+        ========================= */
+
+        .login-options {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            font-size: 13px;
+
+            margin-bottom: 25px;
+        }
+
+
+        .remember {
+
+            display: flex !important;
+
+            align-items: center;
+
+            gap: 6px;
+
+            margin: 0 !important;
+
+            font-weight: normal !important;
+        }
+
+
+        .remember input {
+
+            accent-color: #2563eb;
+        }
+
+
+        .login-options a {
+
+            color: #2563eb;
+
+            text-decoration: none;
+        }
+
+
+        .login-options a:hover {
+
+            text-decoration: underline;
+        }
+
+
+        /* =========================
+           LOGIN BUTTON
+        ========================= */
+
+        .login-button {
+
+            width: 100%;
+
+            height: 50px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background: linear-gradient(
+                135deg,
+                #2563eb,
+                #4f46e5
+            );
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+
+        .login-button i {
+
+            margin-left: 8px;
+        }
+
+
+        .login-button:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 10px 20px rgba(37, 99, 235, 0.3);
+        }
+
+
+        /* =========================
+           COPYRIGHT
+        ========================= */
+
+        .bottom-text {
+
+            text-align: center;
+
+            color: #999;
+
+            font-size: 12px;
+
+            margin-top: 25px;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 750px) {
+
+            .login-container {
+
+                flex-direction: column;
+
+                margin: 20px;
+            }
+
+
+            .school-image {
+
+                width: 100%;
+
+                height: 220px;
+            }
+
+
+            .login-box {
+
+                width: 100%;
+
+                padding: 40px 30px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- MAIN CONTAINER -->
+
+    <div class="login-container">
+
+
+        <!-- LEFT SIDE -->
+
+        <div class="school-image">
+
+            <img
+                src="image.png"
+                alt="School Building"
+            >
+
+
+            <div class="image-text">
+
+                <h1>Smart School</h1>
+
+                <p>Learn • Grow • Succeed</p>
+
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT SIDE -->
+
+        <div class="login-box">
+
+
+            <!-- SCHOOL ICON -->
+
+            <div class="school-logo">
+
+                <i class="fa-solid fa-school"></i>
+
+            </div>
+
+
+            <!-- HEADING -->
+
+            <h1>Welcome Back!</h1>
+
+            <p class="welcome">
+                Login to access your school account
+            </p>
+
+
+            <!-- LOGIN FORM -->
+
+            <form id="loginForm">
+
+
+                <!-- USERNAME -->
+
+                <label for="username">
+
+                    <b><i>Username</i></b>
+
+                </label>
+
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-user"></i>
+
+
+                    <input
+                        type="text"
+                        id="username"
+                        placeholder="Enter username"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- PASSWORD -->
+
+                <label for="password">
+
+                    <b><i>Password</i></b>
+
+                </label>
+
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-lock"></i>
+
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter password"
+                        required
+                    >
+
+
+                    <i
+                        class="fa-solid fa-eye"
+                        id="showPassword">
+                    </i>
+
+                </div>
+
+
+                <!-- REMEMBER -->
+
+                <div class="login-options">
+
+
+                    <label class="remember">
+
+                        <input
+                            type="checkbox"
+                        >
+
+                        Remember me
+
+                    </label>
+
+
+                    <a href="#">
+                        Forgot Password?
+                    </a>
+
+
+                </div>
+
+
+                <!-- LOGIN BUTTON -->
+
+                <button
+                    type="submit"
+                    class="login-button"
+                >
+
+                    Login
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </button>
+
+
+                <!-- COPYRIGHT -->
+
+                <p class="bottom-text">
+
+                    © 2026 Smart School
+
+                </p>
+
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="script.js"></script>
+
+
+</body>
+
+</html>

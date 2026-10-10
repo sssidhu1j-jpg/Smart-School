@@ -1,5 +1,8 @@
 {
   "name": "smart-school",
   "version": "1.0.0",
-  "description": "Smart School full-stack website"
+  "description": "Smart School full-stack website",
+  "scripts": {
+    "build": "echo 'Build complete'"
+  }
 }

@@ -1,9 +1,5 @@
 {
   "name": "smart-school",
   "version": "1.0.0",
-  "description": "Smart School full-stack website",
-  "main": "api/index.js",
-  "scripts": {
-    "start": "node api/index.js"
-  }
+  "description": "Smart School full-stack website"
 }

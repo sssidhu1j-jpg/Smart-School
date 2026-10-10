@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Our Teachers - Smart School</title>
+
+    <style>
+
+        /* ---------- BASIC SETTINGS ---------- */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #172554;
+        }
+
+
+        /* ---------- NAVBAR ---------- */
+
+        header {
+            background: #07345a;
+            color: white;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.15);
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        nav {
+            display: flex;
+            gap: 25px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #8ed8ff;
+        }
+
+
+        /* ---------- HERO SECTION ---------- */
+
+        .hero {
+            background: linear-gradient(
+                rgba(7,52,90,0.85),
+                rgba(7,52,90,0.85)
+            ),
+            url("school.jpg");
+
+            background-size: cover;
+            background-position: center;
+
+            min-height: 300px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            text-align: center;
+            color: white;
+            padding: 40px 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .hero-content p {
+            font-size: 19px;
+            max-width: 650px;
+            line-height: 1.6;
+        }
+
+
+        /* ---------- MAIN SECTION ---------- */
+
+        .container {
+            width: 90%;
+            max-width: 1150px;
+            margin: 60px auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .section-title h2 {
+            font-size: 32px;
+            color: #07345a;
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: #666;
+            font-size: 16px;
+        }
+
+
+        /* ---------- TEACHER CARDS ---------- */
+
+        .teacher-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .teacher-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            text-align: center;
+
+            box-shadow: 0 5px 20px rgba(0,0,0,0.10);
+
+            transition: 0.4s;
+
+            animation: showCard 0.8s ease;
+        }
+
+        .teacher-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+        }
+
+
+        /* ---------- TEACHER IMAGE ---------- */
+
+        .teacher-image {
+            background: #e9f3f9;
+            padding: 25px 0;
+        }
+
+        .teacher-card img {
+            width: 150px;
+            height: 150px;
+
+            border-radius: 50%;
+
+            object-fit: cover;
+
+            border: 5px solid white;
+
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+
+            transition: 0.4s;
+        }
+
+        .teacher-card:hover img {
+            transform: scale(1.08);
+        }
+
+
+        /* ---------- TEACHER INFORMATION ---------- */
+
+        .teacher-info {
+            padding: 25px;
+        }
+
+        .teacher-info h3 {
+            font-size: 22px;
+            color: #07345a;
+            margin-bottom: 8px;
+        }
+
+        .subject {
+            display: inline-block;
+
+            background: #07345a;
+            color: white;
+
+            padding: 6px 14px;
+
+            border-radius: 20px;
+
+            font-size: 13px;
+
+            margin-bottom: 18px;
+        }
+
+        .teacher-info p {
+            color: #555;
+            margin: 10px 0;
+            font-size: 15px;
+        }
+
+        .teacher-info b {
+            color: #172554;
+        }
+
+
+        /* ---------- FACULTY MESSAGE ---------- */
+
+        .faculty-message {
+            margin-top: 70px;
+
+            background: white;
+
+            padding: 35px;
+
+            border-radius: 15px;
+
+            text-align: center;
+
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .faculty-message h2 {
+            color: #07345a;
+            margin-bottom: 15px;
+        }
+
+        .faculty-message p {
+            color: #555;
+            line-height: 1.7;
+            max-width: 800px;
+            margin: auto;
+        }
+
+
+        /* ---------- BACK BUTTON ---------- */
+
+        .back-container {
+            text-align: center;
+            margin-top: 45px;
+        }
+
+        .back {
+            display: inline-block;
+
+            background: #07345a;
+            color: white;
+
+            padding: 13px 25px;
+
+            border-radius: 7px;
+
+            text-decoration: none;
+
+            transition: 0.3s;
+        }
+
+        .back:hover {
+            background: #0b5d91;
+            transform: translateY(-2px);
+        }
+
+
+        /* ---------- FOOTER ---------- */
+
+        footer {
+            background: #07345a;
+            color: white;
+
+            margin-top: 70px;
+
+            padding: 30px 7%;
+
+            text-align: center;
+        }
+
+        footer p {
+            margin: 7px 0;
+            color: #d7e7f2;
+        }
+
+
+        /* ---------- ANIMATION ---------- */
+
+        @keyframes showCard {
+
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+
+        /* ---------- MOBILE ---------- */
+
+        @media(max-width: 800px) {
+
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero-content h1 {
+                font-size: 32px;
+            }
+
+            .teacher-container {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                width: 92%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header>
+
+        <div class="logo">
+            🏫 Smart School
+        </div>
+
+        <nav>
+
+            <a href="index.html">Home</a>
+
+            <a href="index.html#about">About</a>
+
+            <a href="index.html#academics">Academics</a>
+
+            <a href="index.html#contact">Contact</a>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <h1>Our Experienced Teachers</h1>
+
+            <p>
+                Meet our dedicated and highly qualified teachers
+                who inspire students to learn, grow and succeed.
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= TEACHERS ================= -->
+
+    <div class="container">
+
+
+        <div class="section-title">
+
+            <h2>Meet Our Faculty</h2>
+
+            <p>
+                Our teachers bring knowledge, experience and care
+                into every classroom.
+            </p>
+
+        </div>
+
+
+
+        <div class="teacher-container">
+
+
+            <!-- TEACHER 1 -->
+
+            <div class="teacher-card">
+
+                <div class="teacher-image">
+
+                    <img src="teacher1.jpg" alt="Mathematics Teacher">
+
+                </div>
+
+                <div class="teacher-info">
+
+                    <h3>Mrs. Anjali Sharma</h3>
+
+                    <span class="subject">
+                        Mathematics
+                    </span>
+
+                    <p>
+                        <b>Education:</b>
+                        M.Sc. Mathematics, B.Ed.
+                    </p>
+
+                    <p>
+                        <b>Experience:</b>
+                        10 Years
+                    </p>
+
+                    <p>
+                        <b>Specialization:</b>
+                        Mathematics & Problem Solving
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- TEACHER 2 -->
+
+            <div class="teacher-card">
+
+                <div class="teacher-image">
+
+                    <img src="teacher2.jpg" alt="Science Teacher">
+
+                </div>
+
+                <div class="teacher-info">
+
+                    <h3>Mr. Raj Kumar</h3>
+
+                    <span class="subject">
+                        Science
+                    </span>
+
+                    <p>
+                        <b>Education:</b>
+                        M.Sc. Physics, B.Ed.
+                    </p>
+
+                    <p>
+                        <b>Experience:</b>
+                        8 Years
+                    </p>
+
+                    <p>
+                        <b>Specialization:</b>
+                        Physics & Practical Learning
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- TEACHER 3 -->
+
+            <div class="teacher-card">
+
+                <div class="teacher-image">
+
+                    <img src="teacher3.jpg" alt="English Teacher">
+
+                </div>
+
+                <div class="teacher-info">
+
+                    <h3>Mrs. Simran Kaur</h3>
+
+                    <span class="subject">
+                        English
+                    </span>
+
+                    <p>
+                        <b>Education:</b>
+                        M.A. English, B.Ed.
+                    </p>
+
+                    <p>
+                        <b>Experience:</b>
+                        7 Years
+                    </p>
+
+                    <p>
+                        <b>Specialization:</b>
+                        English & Communication
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- ================= FACULTY MESSAGE ================= -->
+
+        <div class="faculty-message">
+
+            <h2>Dedicated to Student Success</h2>
+
+            <p>
+                At Smart School, our teachers believe that every
+                student has unique abilities. They encourage
+                creativity, curiosity and confidence while
+                providing students with the guidance they need
+                to achieve their goals.
+            </p>
+
+        </div>
+
+
+
+        <!-- ================= BACK BUTTON ================= -->
+
+        <div class="back-container">
+
+            <a href="index.html" class="back">
+                ← Back to Home
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <h3>🏫 Smart School</h3>
+
+        <p>Learn • Grow • Succeed</p>
+
+        <p>
+            © 2026 Smart School. All Rights Reserved.
+        </p>
+
+    </footer>
+
+
+</body>
+
+</html>

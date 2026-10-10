@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Classes - Smart School</title>
+
+
+    <style>
+
+        /* ================= BASIC SETTINGS ================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #172554;
+        }
+
+
+        /* ================= NAVBAR ================= */
+
+        header {
+            background: #07345a;
+
+            color: white;
+
+            padding: 18px 7%;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 1000;
+
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.18);
+        }
+
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+
+        nav {
+            display: flex;
+            gap: 25px;
+        }
+
+
+        nav a {
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 16px;
+
+            padding: 8px 12px;
+
+            border-radius: 6px;
+
+            transition: 0.3s;
+        }
+
+
+        nav a:hover {
+            background: white;
+            color: #07345a;
+        }
+
+
+        /* ================= HERO ================= */
+
+        .hero {
+
+            background:
+                linear-gradient(
+                    rgba(7, 52, 90, 0.90),
+                    rgba(7, 52, 90, 0.90)
+                );
+
+            min-height: 330px;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            text-align: center;
+
+            color: white;
+
+            padding: 50px 20px;
+        }
+
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+
+        .hero-icon {
+            font-size: 55px;
+            margin-bottom: 15px;
+        }
+
+
+        .hero h1 {
+            font-size: 48px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .hero p {
+            font-size: 19px;
+
+            line-height: 1.7;
+
+            color: #e2f1fa;
+        }
+
+
+        /* ================= MAIN CONTAINER ================= */
+
+        .container {
+
+            width: 90%;
+
+            max-width: 1200px;
+
+            margin: 60px auto;
+        }
+
+
+        /* ================= SECTION TITLE ================= */
+
+        .section-title {
+
+            text-align: center;
+
+            margin-bottom: 45px;
+        }
+
+
+        .section-title h2 {
+
+            font-size: 34px;
+
+            color: #07345a;
+
+            margin-bottom: 12px;
+        }
+
+
+        .section-title p {
+
+            color: #666;
+
+            font-size: 17px;
+        }
+
+
+        /* ================= GALLERY ================= */
+
+        .gallery {
+
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 28px;
+        }
+
+
+        /* ================= IMAGE CARD ================= */
+
+        .gallery-item {
+
+            background: white;
+
+            padding: 12px;
+
+            border-radius: 16px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 5px 20px rgba(0, 0, 0, 0.10);
+
+            transition: 0.4s;
+
+            animation: fadeUp 0.8s ease;
+        }
+
+
+        .gallery-item:hover {
+
+            transform: translateY(-10px);
+
+            box-shadow:
+                0 15px 35px rgba(0, 0, 0, 0.18);
+        }
+
+
+        /* ================= IMAGES ================= */
+
+        .gallery-item img {
+
+            width: 100%;
+
+            height: 260px;
+
+            object-fit: cover;
+
+            border-radius: 11px;
+
+            display: block;
+
+            transition: 0.5s;
+        }
+
+
+        .gallery-item:hover img {
+
+            transform: scale(1.05);
+        }
+
+
+        /* ================= IMAGE INFORMATION ================= */
+
+        .gallery-info {
+
+            padding: 18px 10px 10px;
+
+            text-align: center;
+        }
+
+
+        .gallery-info h3 {
+
+            color: #07345a;
+
+            font-size: 20px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .gallery-info p {
+
+            color: #666;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+        }
+
+
+        /* ================= SMART CLASS INFO ================= */
+
+        .smart-info {
+
+            margin-top: 65px;
+
+            background: white;
+
+            padding: 40px;
+
+            border-radius: 16px;
+
+            text-align: center;
+
+            box-shadow:
+                0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+
+        .smart-info h2 {
+
+            color: #07345a;
+
+            font-size: 28px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .smart-info p {
+
+            max-width: 850px;
+
+            margin: auto;
+
+            color: #555;
+
+            line-height: 1.8;
+
+            font-size: 16px;
+        }
+
+
+        /* ================= BENEFITS ================= */
+
+        .benefits {
+
+            margin-top: 55px;
+
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 25px;
+        }
+
+
+        .benefit {
+
+            background: white;
+
+            padding: 30px 20px;
+
+            text-align: center;
+
+            border-radius: 14px;
+
+            box-shadow:
+                0 5px 18px rgba(0, 0, 0, 0.08);
+
+            transition: 0.3s;
+        }
+
+
+        .benefit:hover {
+
+            transform: translateY(-6px);
+        }
+
+
+        .benefit-icon {
+
+            font-size: 40px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .benefit h3 {
+
+            color: #07345a;
+
+            margin-bottom: 10px;
+        }
+
+
+        .benefit p {
+
+            color: #666;
+
+            line-height: 1.6;
+
+            font-size: 14px;
+        }
+
+
+        /* ================= BACK BUTTON ================= */
+
+        .back-container {
+
+            text-align: center;
+
+            margin-top: 50px;
+        }
+
+
+        .back {
+
+            display: inline-block;
+
+            background: #07345a;
+
+            color: white;
+
+            padding: 13px 25px;
+
+            text-decoration: none;
+
+            border-radius: 7px;
+
+            transition: 0.3s;
+        }
+
+
+        .back:hover {
+
+            background: #0b5d91;
+
+            transform: translateY(-3px);
+        }
+
+
+        /* ================= FOOTER ================= */
+
+        footer {
+
+            background: #07345a;
+
+            color: white;
+
+            padding: 35px 20px;
+
+            text-align: center;
+
+            margin-top: 70px;
+        }
+
+
+        footer h3 {
+
+            margin-bottom: 8px;
+        }
+
+
+        footer p {
+
+            color: #d7e7f2;
+
+            margin: 7px;
+        }
+
+
+        /* ================= ANIMATION ================= */
+
+        @keyframes fadeUp {
+
+            from {
+
+                opacity: 0;
+
+                transform: translateY(30px);
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform: translateY(0);
+            }
+        }
+
+
+        /* ================= TABLET ================= */
+
+        @media(max-width: 900px) {
+
+            .gallery {
+
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+
+            .benefits {
+
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        /* ================= MOBILE ================= */
+
+        @media(max-width: 600px) {
+
+            header {
+
+                flex-direction: column;
+
+                gap: 15px;
+            }
+
+
+            nav {
+
+                gap: 8px;
+
+                flex-wrap: wrap;
+
+                justify-content: center;
+            }
+
+
+            .hero h1 {
+
+                font-size: 34px;
+            }
+
+
+            .hero p {
+
+                font-size: 16px;
+            }
+
+
+            .gallery {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .gallery-item img {
+
+                height: 240px;
+            }
+
+
+            .smart-info {
+
+                padding: 25px 18px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header>
+
+        <div class="logo">
+            🏫 Smart School
+        </div>
+
+
+        <nav>
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="index.html#about">
+                About
+            </a>
+
+            <a href="index.html#academics">
+                Academics
+            </a>
+
+            <a href="index.html#contact">
+                Contact
+            </a>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- ================= HERO SECTION ================= -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-icon">
+                💻
+            </div>
+
+            <h1>
+                Smart Classes
+            </h1>
+
+            <p>
+                Modern classrooms where technology and education
+                come together to create an interesting,
+                interactive and effective learning experience.
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <div class="container">
+
+
+        <!-- SECTION TITLE -->
+
+        <div class="section-title">
+
+            <h2>
+                Our Smart Classrooms
+            </h2>
+
+            <p>
+                Explore our technology-enabled classrooms
+                designed for modern learning.
+            </p>
+
+        </div>
+
+
+
+        <!-- ================= IMAGE GALLERY ================= -->
+
+        <div class="gallery">
+
+
+            <!-- ================= IMAGE 1 ================= -->
+
+            <div class="gallery-item">
+
+                <!--
+                    IMPORTANT:
+                    KEEP YOUR ORIGINAL IMAGE LINK HERE.
+                    Do not delete the long Base64 src.
+                -->
+
+                <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7i04qmrlkC0eqvE6z0kmpEC4_IIeBC4lhov_qlFQWSw&s=10"
+                    alt="Smart Classroom"
+                >
+
+                <div class="gallery-info">
+
+                    <h3>
+                        Interactive Learning
+                    </h3>
+
+                    <p>
+                        Students learn through digital
+                        and interactive teaching methods.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================= IMAGE 2 ================= -->
+
+            <div class="gallery-item">
+
+                <!-- KEEP YOUR ORIGINAL IMAGE LINK -->
+
+                <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTA1MrvSjwlPAPlVwA1l8AyPr0X7qgd6MQx-vAnMiEMDQ&s=10"
+                    alt="Smart Classroom"
+                >
+
+                <div class="gallery-info">
+
+                    <h3>
+                        Modern Classroom
+                    </h3>
+
+                    <p>
+                        Modern classrooms provide students
+                        with a better learning environment.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================= IMAGE 3 ================= -->
+
+            <div class="gallery-item">
+
+                <!-- KEEP YOUR ORIGINAL IMAGE LINK -->
+
+                <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVCCkxD-Szv6T4f3Z6A4GcmbgDhn_gGtuTxvmpZRpc5w&s=10"
+                    alt="Smart Classroom"
+                >
+
+                <div class="gallery-info">
+
+                    <h3>
+                        Digital Education
+                    </h3>
+
+                    <p>
+                        Digital tools help teachers explain
+                        difficult topics more easily.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================= IMAGE 4 ================= -->
+
+            <div class="gallery-item">
+
+                <!-- KEEP YOUR ORIGINAL IMAGE LINK -->
+
+                <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFVJOUC9vyDullvEGLP3Z8MHJ9IeDyC5iKR2VAnz1gBA&s=10"
+                    alt="Smart Classroom"
+                >
+
+                <div class="gallery-info">
+
+                    <h3>
+                        Student Participation
+                    </h3>
+
+                    <p>
+                        Students actively participate
+                        during classroom lessons.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+        <!-- ================= INFORMATION ================= -->
+
+        <div class="smart-info">
+
+            <h2>
+                Learning Beyond the Blackboard
+            </h2>
+
+            <p>
+
+                At Smart School, technology is used to make
+                classroom learning more engaging and easier
+                to understand. Our teachers use digital
+                presentations, videos and interactive content
+                to explain concepts in a simple and effective
+                way.
+
+            </p>
+
+        </div>
+
+
+
+        <!-- ================= BENEFITS ================= -->
+
+        <div class="benefits">
+
+
+            <div class="benefit">
+
+                <div class="benefit-icon">
+                    💡
+                </div>
+
+                <h3>
+                    Better Understanding
+                </h3>
+
+                <p>
+                    Visual and interactive content helps
+                    students understand concepts easily.
+                </p>
+
+            </div>
+
+
+
+            <div class="benefit">
+
+                <div class="benefit-icon">
+                    🖥️
+                </div>
+
+                <h3>
+                    Modern Technology
+                </h3>
+
+                <p>
+                    Digital tools make classroom teaching
+                    more interesting and effective.
+                </p>
+
+            </div>
+
+
+
+            <div class="benefit">
+
+                <div class="benefit-icon">
+                    🎓
+                </div>
+
+                <h3>
+                    Better Learning
+                </h3>
+
+                <p>
+                    Students get an engaging environment
+                    that supports their learning.
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- ================= BACK BUTTON ================= -->
+
+        <div class="back-container">
+
+            <a href="index.html" class="back">
+
+                ← Back to Home
+
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <h3>
+            🏫 Smart School
+        </h3>
+
+        <p>
+            Learn • Grow • Succeed
+        </p>
+
+        <p>
+            © 2026 Smart School. All Rights Reserved.
+        </p>
+
+    </footer>
+
+
+</body>
+
+</html>

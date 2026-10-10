@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Admission Enquiry - Smart School</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            font-family: Arial, sans-serif;
+
+            background: linear-gradient(
+                135deg,
+                #dbeafe,
+                #ffffff,
+                #e0e7ff
+            );
+
+            min-height: 100vh;
+
+            color: #172554;
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        header {
+
+            background: #07345a;
+
+            color: white;
+
+            padding: 20px 8%;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+        }
+
+
+        .logo {
+
+            font-size: 25px;
+
+            font-weight: bold;
+        }
+
+
+        header a {
+
+            color: white;
+
+            text-decoration: none;
+
+            margin-left: 25px;
+        }
+
+
+        header a:hover {
+
+            color: #ffbd17;
+        }
+
+
+        /* =========================
+           MAIN PAGE
+        ========================= */
+
+        .page {
+
+            max-width: 1100px;
+
+            margin: 50px auto;
+
+            padding: 20px;
+        }
+
+
+        .title {
+
+            text-align: center;
+
+            margin-bottom: 35px;
+        }
+
+
+        .title h1 {
+
+            font-size: 40px;
+
+            color: #1d4ed8;
+
+            margin-bottom: 10px;
+        }
+
+
+        .title p {
+
+            color: #64748b;
+
+            font-size: 17px;
+        }
+
+
+        /* =========================
+           FORM CONTAINER
+        ========================= */
+
+        .enquiry-container {
+
+            background: white;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 15px 40px rgba(0,0,0,0.12);
+
+            padding: 45px;
+
+            display: grid;
+
+            grid-template-columns: 1fr 2fr;
+
+            gap: 50px;
+        }
+
+
+        /* =========================
+           LEFT INFORMATION
+        ========================= */
+
+        .information {
+
+            background: #07345a;
+
+            color: white;
+
+            padding: 35px;
+
+            border-radius: 15px;
+        }
+
+
+        .information h2 {
+
+            margin-bottom: 20px;
+
+            font-size: 25px;
+        }
+
+
+        .information p {
+
+            line-height: 1.7;
+
+            color: #dbeafe;
+
+            margin-bottom: 25px;
+        }
+
+
+        .information h3 {
+
+            color: #ffbd17;
+
+            margin-bottom: 8px;
+        }
+
+
+        /* =========================
+           FORM
+        ========================= */
+
+        .form-section h2 {
+
+            margin-bottom: 25px;
+
+            color: #172554;
+        }
+
+
+        .form-row {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 20px;
+        }
+
+
+        .form-group {
+
+            margin-bottom: 20px;
+        }
+
+
+        .form-group label {
+
+            display: block;
+
+            font-weight: bold;
+
+            margin-bottom: 8px;
+
+            color: #334155;
+        }
+
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+
+            width: 100%;
+
+            padding: 13px;
+
+            border: 1px solid #cbd5e1;
+
+            border-radius: 8px;
+
+            outline: none;
+
+            font-size: 15px;
+
+            font-family: Arial, sans-serif;
+
+            transition: 0.3s;
+        }
+
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+
+            border-color: #2563eb;
+
+            box-shadow:
+                0 0 0 3px rgba(37,99,235,0.1);
+        }
+
+
+        .form-group textarea {
+
+            height: 120px;
+
+            resize: vertical;
+        }
+
+
+        /* =========================
+           BUTTON
+        ========================= */
+
+        .submit-button {
+
+            background: linear-gradient(
+                135deg,
+                #2563eb,
+                #4f46e5
+            );
+
+            color: white;
+
+            border: none;
+
+            padding: 14px 30px;
+
+            border-radius: 8px;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+
+        .submit-button:hover {
+
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 10px 20px rgba(37,99,235,0.3);
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+
+            margin-top: 50px;
+
+            background: #07345a;
+
+            color: white;
+
+            text-align: center;
+
+            padding: 25px;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 800px) {
+
+            .enquiry-container {
+
+                grid-template-columns: 1fr;
+
+                padding: 25px;
+            }
+
+
+            .form-row {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            header {
+
+                flex-direction: column;
+
+                gap: 15px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         HEADER
+    ========================= -->
+
+    <header>
+
+        <div class="logo">
+            🏫 Smart School
+        </div>
+
+
+        <nav>
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="index.html#about">
+                About
+            </a>
+
+            <a href="index.html#academics">
+                Academics
+            </a>
+
+            <a href="index.html#contact">
+                Contact
+            </a>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- =========================
+         MAIN
+    ========================= -->
+
+    <main class="page">
+
+
+        <div class="title">
+
+            <h1>
+                Admission Enquiry
+            </h1>
+
+            <p>
+                Have questions about admission?
+                Fill out the form and our school
+                team will contact you.
+            </p>
+
+        </div>
+
+
+
+        <div class="enquiry-container">
+
+
+            <!-- =========================
+                 INFORMATION
+            ========================= -->
+
+            <div class="information">
+
+                <h2>
+                    Join Smart School
+                </h2>
+
+
+                <p>
+
+                    We welcome parents and students
+                    who are interested in becoming
+                    part of our school community.
+
+                </p>
+
+
+                <h3>
+                    📍 Address
+                </h3>
+
+                <p>
+                    Bathinda, Punjab, India
+                </p>
+
+
+                <h3>
+                    📞 Phone
+                </h3>
+
+                <p>
+                    +91 98765 43210
+                </p>
+
+
+                <h3>
+                    ✉ Email
+                </h3>
+
+                <p>
+                    info@smartschool.com
+                </p>
+
+
+                <h3>
+                    🕐 Office Hours
+                </h3>
+
+                <p>
+                    Monday - Saturday<br>
+                    9:00 AM - 4:00 PM
+                </p>
+
+            </div>
+
+
+
+            <!-- =========================
+                 ENQUIRY FORM
+            ========================= -->
+
+            <div class="form-section">
+
+                <h2>
+                    Send Your Enquiry
+                </h2>
+
+
+                <form id="enquiryForm">
+
+
+                    <!-- NAME -->
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label>
+                                Parent / Guardian Name
+                            </label>
+
+                            <input
+                                type="text"
+                                placeholder="Enter your name"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Student Name
+                            </label>
+
+                            <input
+                                type="text"
+                                placeholder="Enter student's name"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- CONTACT -->
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label>
+                                Phone Number
+                            </label>
+
+                            <input
+                                type="tel"
+                                placeholder="Enter phone number"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Email Address
+                            </label>
+
+                            <input
+                                type="email"
+                                placeholder="Enter email address"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- CLASS -->
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label>
+                                Class Applying For
+                            </label>
+
+                            <select required>
+
+                                <option value="">
+                                    Select Class
+                                </option>
+
+                                <option>
+                                    Nursery
+                                </option>
+
+                                <option>
+                                    LKG
+                                </option>
+
+                                <option>
+                                    UKG
+                                </option>
+
+                                <option>
+                                    Class 1
+                                </option>
+
+                                <option>
+                                    Class 2
+                                </option>
+
+                                <option>
+                                    Class 3
+                                </option>
+
+                                <option>
+                                    Class 4
+                                </option>
+
+                                <option>
+                                    Class 5
+                                </option>
+
+                                <option>
+                                    Class 6
+                                </option>
+
+                                <option>
+                                    Class 7
+                                </option>
+
+                                <option>
+                                    Class 8
+                                </option>
+
+                                <option>
+                                    Class 9
+                                </option>
+
+                                <option>
+                                    Class 10
+                                </option>
+
+                                <option>
+                                    Class 11
+                                </option>
+
+                                <option>
+                                    Class 12
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Preferred Contact
+                            </label>
+
+                            <select required>
+
+                                <option value="">
+                                    Select
+                                </option>
+
+                                <option>
+                                    Phone
+                                </option>
+
+                                <option>
+                                    Email
+                                </option>
+
+                                <option>
+                                    WhatsApp
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- MESSAGE -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Your Message / Question
+                        </label>
+
+                        <textarea
+                            placeholder="Write your enquiry here..."
+                        ></textarea>
+
+                    </div>
+
+
+
+                    <!-- SUBMIT -->
+
+                    <button
+                        type="submit"
+                        class="submit-button"
+                    >
+
+                        Submit Enquiry →
+
+                    </button>
+
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer>
+
+        © 2026 Smart School.
+        All Rights Reserved.
+
+    </footer>
+
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+
+    <script>
+
+        document
+        .getElementById("enquiryForm")
+        .addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            alert(
+                "Thank you! Your admission enquiry has been submitted."
+            );
+
+        });
+
+    </script>
+
+
+</body>
+
+</html>

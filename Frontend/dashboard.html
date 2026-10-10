@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Smart School Dashboard</title>
+
+
+    <!-- DASHBOARD CSS -->
+
+    <link
+        rel="stylesheet"
+        href="dashboard.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- ========================================
+         DASHBOARD HEADER
+    ========================================= -->
+
+    <header>
+
+        <h1>
+            🏫 Smart School Dashboard
+        </h1>
+
+    </header>
+
+
+    <!-- ========================================
+         MAIN CONTENT
+    ========================================= -->
+
+    <main class="dashboard">
+
+
+        <h2>
+            Welcome to Smart School Dashboard
+        </h2>
+
+
+        <p>
+            Login successful! You are now inside
+            the school dashboard.
+        </p>
+
+
+        <!-- DASHBOARD CARDS -->
+
+        <div class="cards">
+
+
+            <div class="card">
+
+                <h3>
+                    👨‍🎓 Students
+                </h3>
+
+                <p>
+                    Manage students
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>
+                    👨‍🏫 Teachers
+                </h3>
+
+                <p>
+                    Manage teachers
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>
+                    📚 Classes
+                </h3>
+
+                <p>
+                    Manage classes
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>
+                    📊 Results
+                </h3>
+
+                <p>
+                    View student results
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- LOGOUT -->
+
+        <button
+            class="logout-button"
+            onclick="logout()"
+        >
+
+            Logout
+
+        </button>
+
+
+    </main>
+
+
+    <!-- ========================================
+         JAVASCRIPT
+    ========================================= -->
+
+    <script>
+
+        function logout() {
+
+            alert("Logged out successfully!");
+
+            window.location.href = "login.html";
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

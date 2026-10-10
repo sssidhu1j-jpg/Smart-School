@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Smart School</title>
+
+
+    <style>
+
+        /* =================================
+           RESET
+        ================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f8fafc;
+            color: #172554;
+        }
+
+
+        /* =================================
+           NAVIGATION BAR
+        ================================= */
+
+        nav {
+            width: 100%;
+            background: white;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 18px 60px;
+
+            position: sticky;
+            top: 0;
+
+            z-index: 1000;
+
+            box-shadow:
+                0 3px 15px rgba(0,0,0,0.1);
+        }
+
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            color: #2563eb;
+        }
+
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+
+        .nav-links a {
+            text-decoration: none;
+            color: #334155;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+
+
+        .nav-login {
+            background: #2563eb;
+            color: white !important;
+
+            padding: 10px 20px;
+            border-radius: 20px;
+        }
+
+
+        /* =================================
+           HERO SECTION
+        ================================= */
+
+        .hero {
+            min-height: 600px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 70px 8%;
+
+            background: linear-gradient(
+                135deg,
+                #dbeafe,
+                #ffffff,
+                #e0e7ff
+            );
+        }
+
+
+        .hero-text {
+            width: 50%;
+            animation: slideLeft 1.2s ease;
+        }
+
+
+        .hero-text h1 {
+            font-size: 55px;
+            color: #1d4ed8;
+            margin-bottom: 20px;
+        }
+
+
+        .hero-text h2 {
+            font-size: 30px;
+            color: #172554;
+            margin-bottom: 20px;
+        }
+
+
+        .hero-text p {
+            font-size: 18px;
+            line-height: 1.7;
+            color: #475569;
+            margin-bottom: 30px;
+        }
+
+
+        .hero-button {
+            display: inline-block;
+
+            background: linear-gradient(
+                135deg,
+                #2563eb,
+                #4f46e5
+            );
+
+            color: white;
+            text-decoration: none;
+
+            padding: 15px 30px;
+            border-radius: 30px;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+
+            box-shadow:
+                0 8px 20px rgba(37,99,235,0.3);
+        }
+
+
+        .hero-button:hover {
+            transform: translateY(-5px);
+
+            box-shadow:
+                0 15px 30px rgba(37,99,235,0.4);
+        }
+
+
+        /* =================================
+           HERO IMAGE
+        ================================= */
+
+        .hero-image {
+            width: 45%;
+            text-align: center;
+            animation: slideRight 1.2s ease;
+        }
+
+
+        .hero-image img {
+            width: 100%;
+            max-width: 500px;
+
+            height: 350px;
+
+            object-fit: cover;
+
+            border-radius: 25px;
+
+            box-shadow:
+                0 20px 40px rgba(0,0,0,0.2);
+
+            animation: floating 4s ease-in-out infinite;
+        }
+
+
+        /* =================================
+           ABOUT SECTION
+        ================================= */
+
+        .about {
+            padding: 80px 8%;
+            text-align: center;
+            background: white;
+        }
+
+
+        .section-title {
+            font-size: 38px;
+            color: #1d4ed8;
+            margin-bottom: 20px;
+        }
+
+
+        .about p {
+            max-width: 800px;
+            margin: auto;
+
+            line-height: 1.8;
+
+            color: #64748b;
+
+            font-size: 17px;
+        }
+
+
+        /* =================================
+           FEATURES
+        ================================= */
+
+        .features {
+            padding: 80px 8%;
+
+            background: #f1f5f9;
+
+            text-align: center;
+        }
+
+
+        .features > h2 {
+            font-size: 38px;
+            color: #1d4ed8;
+        }
+
+
+        .feature-container {
+            display: flex;
+
+            justify-content: center;
+
+            gap: 25px;
+
+            margin-top: 40px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .feature-card {
+            width: 280px;
+
+            background: white;
+
+            padding: 35px 25px;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 8px 25px rgba(0,0,0,0.08);
+
+            transition: 0.4s;
+
+            text-decoration: none;
+
+            color: inherit;
+
+            display: block;
+        }
+
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+
+            box-shadow:
+                0 15px 35px rgba(37,99,235,0.2);
+        }
+
+
+        .feature-icon {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+
+        .feature-card h3 {
+            color: #2563eb;
+            margin-bottom: 15px;
+        }
+
+
+        .feature-card p {
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+
+        /* =================================
+           GALLERY
+        ================================= */
+
+        .gallery {
+            padding: 80px 8%;
+
+            text-align: center;
+
+            background: white;
+        }
+
+
+        .gallery-container {
+            display: flex;
+
+            justify-content: center;
+
+            gap: 25px;
+
+            flex-wrap: wrap;
+
+            margin-top: 40px;
+        }
+
+
+        .gallery-container img {
+            width: 280px;
+
+            height: 200px;
+
+            object-fit: cover;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 8px 20px rgba(0,0,0,0.15);
+
+            transition: 0.4s;
+        }
+
+
+        .gallery-container img:hover {
+            transform: scale(1.08);
+        }
+
+
+        /* =================================
+           CONTACT
+        ================================= */
+
+        .contact {
+            padding: 70px 8%;
+
+            text-align: center;
+
+            background: #eff6ff;
+        }
+
+
+        .contact p {
+            margin: 10px;
+
+            color: #475569;
+
+            font-size: 17px;
+        }
+
+
+        /* =================================
+           FOOTER
+        ================================= */
+
+        footer {
+            background: #07345a;
+
+            color: white;
+
+            padding: 50px 8% 20px;
+        }
+
+
+        /* MOTTO */
+
+        .footer-motto {
+            text-align: center;
+
+            font-size: 28px;
+
+            font-weight: bold;
+
+            margin-bottom: 45px;
+
+            color: #ffffff;
+        }
+
+
+        .footer-motto span {
+            color: #ffbd17;
+        }
+
+
+        /* FOOTER CONTENT */
+
+        .footer-content {
+            max-width: 1200px;
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns:
+                1.5fr 1fr 1.2fr 1.2fr;
+
+            gap: 45px;
+        }
+
+
+        .footer-content > div {
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: flex-start;
+        }
+
+
+        .footer-content h3 {
+            color: #ffffff;
+
+            font-size: 17px;
+
+            margin-bottom: 18px;
+
+            letter-spacing: 1px;
+        }
+
+
+        .footer-content h2 {
+            color: #ffffff;
+
+            font-size: 22px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .footer-content p {
+            color: #cfe3f1;
+
+            line-height: 1.7;
+
+            margin-bottom: 8px;
+
+            font-size: 14px;
+        }
+
+
+        /* QUICK LINKS */
+
+        .footer-content a {
+            color: #dbeaf4;
+
+            text-decoration: none;
+
+            margin-bottom: 10px;
+
+            transition: 0.3s;
+        }
+
+
+        .footer-content a:hover {
+            color: #ffbd17;
+        }
+
+
+        /* ENQUIRE BUTTON */
+
+        .enquiry {
+            display: inline-block;
+
+            background: #ffbd17;
+
+            color: #07345a !important;
+
+            padding: 12px 22px;
+
+            border-radius: 7px;
+
+            font-weight: bold;
+
+            margin-top: 10px;
+        }
+
+
+        .enquiry:hover {
+            background: white;
+
+            color: #07345a !important;
+        }
+
+
+        /* FOOTER BOTTOM */
+
+        .footer-bottom {
+            max-width: 1200px;
+
+            margin: 40px auto 0;
+
+            padding-top: 20px;
+
+            border-top:
+                1px solid rgba(255,255,255,0.2);
+
+            text-align: center;
+        }
+
+
+        .footer-bottom p {
+            color: #b9cfde;
+
+            font-size: 13px;
+
+            margin: 6px;
+        }
+
+
+        /* =================================
+           ANIMATIONS
+        ================================= */
+
+        @keyframes slideLeft {
+
+            from {
+                opacity: 0;
+                transform: translateX(-70px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+
+        }
+
+
+        @keyframes slideRight {
+
+            from {
+                opacity: 0;
+                transform: translateX(70px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+
+        }
+
+
+        @keyframes floating {
+
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-12px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+
+        }
+
+
+        /* =================================
+           MOBILE
+        ================================= */
+
+        @media (max-width: 900px) {
+
+            nav {
+                padding: 15px 25px;
+
+                flex-direction: column;
+
+                gap: 15px;
+            }
+
+
+            .nav-links {
+                gap: 12px;
+
+                flex-wrap: wrap;
+
+                justify-content: center;
+            }
+
+
+            .hero {
+                flex-direction: column;
+
+                text-align: center;
+
+                gap: 40px;
+            }
+
+
+            .hero-text {
+                width: 100%;
+            }
+
+
+            .hero-text h1 {
+                font-size: 40px;
+            }
+
+
+            .hero-image {
+                width: 100%;
+            }
+
+
+            .hero-image img {
+                height: 250px;
+            }
+
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+
+            .footer-content > div {
+                align-items: center;
+
+                text-align: center;
+            }
+
+
+            .footer-motto {
+                font-size: 22px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================
+         NAVIGATION
+    ========================================== -->
+
+    <nav>
+
+        <div class="logo">
+            🏫 Smart School
+        </div>
+
+
+        <ul class="nav-links">
+
+            <li>
+                <a href="#home">Home</a>
+            </li>
+
+            <li>
+                <a href="#about">About</a>
+            </li>
+
+            <li>
+                <a href="#academics">Academics</a>
+            </li>
+
+            <li>
+                <a href="#gallery">Gallery</a>
+            </li>
+
+            <li>
+                <a href="#contact">Contact</a>
+            </li>
+
+            <li>
+                <a href="login.html"
+                   class="nav-login">
+                    Login
+                </a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+
+
+    <!-- =========================================
+         HERO
+    ========================================== -->
+
+    <section class="hero" id="home">
+
+
+        <div class="hero-text">
+
+            <h1>
+                Welcome to
+                <br>
+                Smart School
+            </h1>
+
+
+            <h2>
+                Learn • Grow • Succeed
+            </h2>
+
+
+            <p>
+                We provide quality education,
+                modern learning facilities and
+                a safe environment where every
+                student can achieve their goals.
+            </p>
+
+
+            <a href="#about"
+               class="hero-button">
+
+                Explore Our School
+
+            </a>
+
+        </div>
+
+
+
+        <div class="hero-image">
+
+            <img
+                src="https://t4.ftcdn.net/jpg/19/99/70/45/240_F_1999704505_HEC2Xg95B7mlweDtv6ZqJ1tzhUUjyH6v.jpg"
+                alt="Smart School"
+            >
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================
+         ABOUT
+    ========================================== -->
+
+    <section class="about" id="about">
+
+        <h2 class="section-title">
+            About Our School
+        </h2>
+
+
+        <p>
+
+            Smart School is dedicated to providing
+            high-quality education and developing
+            confident, creative and responsible
+            students.
+
+            Our goal is to create an environment
+            where students can learn, explore
+            and grow.
+
+        </p>
+
+    </section>
+
+
+
+    <!-- =========================================
+         ACADEMICS / FEATURES
+    ========================================== -->
+
+    <section class="features" id="academics">
+
+        <h2 class="section-title">
+            Why Choose Smart School?
+        </h2>
+
+
+        <div class="feature-container">
+
+
+            <!-- TEACHERS -->
+
+            <a href="teachers.html"
+               class="feature-card">
+
+                <div class="feature-icon">
+                    👨‍🏫
+                </div>
+
+                <h3>
+                    Experienced Teachers
+                </h3>
+
+                <p>
+                    Learn from qualified and
+                    experienced teachers.
+                </p>
+
+            </a>
+
+
+
+            <!-- SMART CLASSES -->
+
+            <a href="smart-classes.html"
+               class="feature-card">
+
+                <div class="feature-icon">
+                    💻
+                </div>
+
+                <h3>
+                    Smart Classes
+                </h3>
+
+                <p>
+                    Modern classrooms with smart
+                    learning technology.
+                </p>
+
+            </a>
+
+
+
+            <!-- ACTIVITIES -->
+
+            <a href="activities.html"
+               class="feature-card">
+
+                <div class="feature-icon">
+                    🎨
+                </div>
+
+                <h3>
+                    Activities
+                </h3>
+
+                <p>
+                    Creative activities that help
+                    students learn and grow.
+                </p>
+
+            </a>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================
+         GALLERY
+    ========================================== -->
+
+    <section class="gallery" id="gallery">
+
+        <h2 class="section-title">
+            School Gallery
+        </h2>
+
+
+        <div class="gallery-container">
+
+
+            <img
+                src="https://t3.ftcdn.net/jpg/05/13/53/72/240_F_513537271_EjWPNYgcovQI0dMr78ontkTAEt7TvQ4h.jpg"
+                alt="School"
+            >
+
+
+            <img
+                src="https://t3.ftcdn.net/jpg/04/16/42/46/240_F_416424665_HW9hEYroCM4BNlpjCYDxjMyaWJxu6zyE.jpg"
+                alt="School Activity"
+            >
+
+
+            <img
+                src="https://t3.ftcdn.net/jpg/12/51/14/08/240_F_1251140845_sVeSWa2AXYha19BAL1aAuwc4gvuzPrHt.jpg"
+                alt="School Building"
+            >
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================
+         CONTACT
+    ========================================== -->
+
+    <section class="contact" id="contact">
+
+        <h2 class="section-title">
+            Contact Us
+        </h2>
+
+
+        <p>
+            📍 Bathinda, Punjab, India
+        </p>
+
+
+        <p>
+            📞 +91 98765 43210
+        </p>
+
+
+        <p>
+            ✉️ info@smartschool.com
+        </p>
+
+    </section>
+
+
+
+    <!-- =========================================
+         FOOTER
+    ========================================== -->
+
+    <footer>
+
+
+        <!-- MOTTO -->
+
+        <div class="footer-motto">
+
+            “Every Child.
+            <span>Every Dream.</span>
+            Every Day.”
+
+        </div>
+
+
+
+        <!-- FOOTER CONTENT -->
+
+        <div class="footer-content">
+
+
+            <!-- ABOUT SCHOOL -->
+
+            <div>
+
+                <h3>
+                    ABOUT SCHOOL
+                </h3>
+
+
+                <h2>
+                    🏫 SMART SCHOOL
+                </h2>
+
+
+                <p>
+                    Smart School is committed to
+                    providing quality education,
+                    values, discipline and a caring
+                    environment where every child
+                    feels inspired to learn and grow.
+                </p>
+
+            </div>
+
+
+
+            <!-- QUICK LINKS -->
+
+            <div>
+
+                <h3>
+                    QUICK LINKS
+                </h3>
+
+
+                <a href="#home">
+                    Home
+                </a>
+
+
+                <a href="#about">
+                    About Us
+                </a>
+
+
+                <a href="#academics">
+                    Academics
+                </a>
+
+
+                <a href="#gallery">
+                    Gallery
+                </a>
+
+
+                <a href="#contact">
+                    Contact
+                </a>
+
+            </div>
+
+
+
+            <!-- CONTACT DETAILS -->
+
+            <div>
+
+                <h3>
+                    CONTACT DETAILS
+                </h3>
+
+
+                <p>
+                    📍 Bathinda, Punjab, India
+                </p>
+
+
+                <p>
+                    ☎ +91 98765 43210
+                </p>
+
+
+                <p>
+                    ✉ info@smartschool.com
+                </p>
+
+
+                <p>
+                    🌐 www.smartschool.com
+                </p>
+
+            </div>
+
+
+
+            <!-- ADMISSION ENQUIRY -->
+
+            <div>
+
+                <h3>
+                    ADMISSION ENQUIRY
+                </h3>
+
+
+                <p>
+                    Have a question about admissions,
+                    transport or school facilities?
+                </p>
+
+
+                <!-- FIXED LINK -->
+
+                <a href="enquiry.html"
+                   class="enquiry">
+
+                    Enquire Now →
+
+                </a>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- FOOTER BOTTOM -->
+
+        <div class="footer-bottom">
+
+            <p>
+                © 2026 SMART SCHOOL.
+                All Rights Reserved.
+            </p>
+
+
+            <p>
+                Managed by Smart School
+                Education Society
+            </p>
+
+        </div>
+
+
+    </footer>
+
+
+</body>
+
+</html>

@@ -1,0 +1,108 @@
+/* =========================================
+   FOOTER TEXT COLOURS
+========================================= */
+
+/* Main footer headings */
+.footer-section h2,
+.footer-section h3 {
+    color: #ffffff;
+}
+
+
+/* School description */
+.footer-section p {
+    color: #cfe3f1;
+}
+
+
+/* Quick links */
+.footer-section a {
+    color: #dbeaf4;
+}
+
+
+/* Quick links hover */
+.footer-section a:hover {
+    color: #ffbd17;
+}
+
+
+/* Contact details */
+.footer-column p {
+    color: #cfe3f1;
+}
+
+
+/* Footer column headings */
+.footer-column h3 {
+    color: #ffffff;
+}
+
+
+/* Footer column links */
+.footer-column > a {
+    color: #dbeaf4;
+}
+
+
+/* Footer column links hover */
+.footer-column > a:hover {
+    color: #ffbd17;
+}
+
+
+/* School title */
+.school-title h2 {
+    color: #ffffff;
+}
+
+
+/* School information */
+.school-info > p {
+    color: #cfe3f1;
+}
+
+
+/* Social media icons */
+.social-icons a {
+    color: #ffffff;
+}
+
+
+/* Social media hover */
+.social-icons a:hover {
+    color: #07345a;
+    background: #ffbd17;
+}
+
+
+/* Motto */
+.footer-motto h2 {
+    color: #ffffff;
+}
+
+
+/* Motto highlighted text */
+.footer-motto span {
+    color: #ffbd17;
+}
+
+
+/* Bottom copyright */
+.footer-bottom p {
+    color: #b9cfde;
+}
+
+
+/* Admission button */
+.enquiry-button {
+    color: #07345a !important;
+    background: #ffbd17;
+}
+
+
+/* Admission button hover */
+.enquiry-button:hover {
+    color: #07345a !important;
+    background: #ffffff;
+}

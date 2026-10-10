@@ -739,19 +739,69 @@
     ========================= -->
 
     <script>
+        const enquiryForm = document.getElementById("enquiryForm");
+        if (enquiryForm) {
+            // Create a feedback message area right under submit button
+            const feedbackDiv = document.createElement("div");
+            feedbackDiv.id = "enquiryFeedback";
+            feedbackDiv.style.marginTop = "15px";
+            feedbackDiv.style.fontWeight = "bold";
+            feedbackDiv.style.fontSize = "15px";
+            feedbackDiv.style.textAlign = "center";
+            enquiryForm.appendChild(feedbackDiv);
 
-        document
-        .getElementById("enquiryForm")
-        .addEventListener("submit", function(event) {
+            enquiryForm.addEventListener("submit", async function(event) {
+                event.preventDefault();
 
-            event.preventDefault();
+                // Select inputs
+                const inputs = enquiryForm.querySelectorAll("input, select, textarea");
+                const parentName = enquiryForm.querySelector("input[placeholder*='your name']")?.value.trim() || "";
+                const studentName = enquiryForm.querySelector("input[placeholder*='student']")?.value.trim() || "";
+                const phone = enquiryForm.querySelector("input[type='tel']")?.value.trim() || "";
+                const email = enquiryForm.querySelector("input[type='email']")?.value.trim() || "";
+                const grade = enquiryForm.querySelector("select")?.value || "";
+                const message = enquiryForm.querySelector("textarea")?.value.trim() || "";
 
-            alert(
-                "Thank you! Your admission enquiry has been submitted."
-            );
+                const fullName = studentName ? `${studentName} (Parent: ${parentName})` : parentName;
 
-        });
+                // Show submitting state
+                feedbackDiv.textContent = "Submitting your enquiry...";
+                feedbackDiv.style.color = "#2563eb";
+                const submitBtn = enquiryForm.querySelector("button[type='submit']");
+                if (submitBtn) submitBtn.disabled = true;
 
+                try {
+                    const response = await fetch("/api/enquiries", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            name: fullName,
+                            email: email,
+                            phone: phone,
+                            grade: grade,
+                            message: message
+                        })
+                    });
+
+                    const result = await response.json();
+
+                    if (response.ok && result.success) {
+                        feedbackDiv.textContent = "✓ " + (result.message || "Thank you! Your enquiry has been submitted.");
+                        feedbackDiv.style.color = "#16a34a";
+                        enquiryForm.reset();
+                    } else {
+                        feedbackDiv.textContent = "✗ " + (result.error || "Submission failed. Please check your information.");
+                        feedbackDiv.style.color = "#dc2626";
+                    }
+                } catch (err) {
+                    console.error("Enquiry submission error:", err);
+                    feedbackDiv.textContent = "✗ Network error: Could not reach the server.";
+                    feedbackDiv.style.color = "#dc2626";
+                } finally {
+                    if (submitBtn) submitBtn.disabled = false;
+                }
+            });
+        }
     </script>
 
 

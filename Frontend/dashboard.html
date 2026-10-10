@@ -118,11 +118,49 @@
         </div>
 
 
+        <!-- ========================================
+             ENQUIRIES SECTION
+        ========================================= -->
+        <section class="enquiries-section" style="margin-top: 40px; background: white; border-radius: 16px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); text-align: left;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+                <div>
+                    <h3 style="color: #1e3a8a; font-size: 22px; margin: 0;">📋 Submitted Enquiries</h3>
+                    <p style="color: #64748b; margin: 4px 0 0 0; font-size: 14px;">Recent admission enquiries received from parents.</p>
+                </div>
+                <button onclick="loadEnquiries()" style="background: #2563eb; color: white; border: none; padding: 9px 18px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 14px;">
+                    🔄 Refresh
+                </button>
+            </div>
+
+            <div id="enquiriesStatus" style="text-align: center; color: #64748b; padding: 20px; font-size: 15px;">
+                Loading enquiries...
+            </div>
+
+            <div style="overflow-x: auto;">
+                <table id="enquiriesTable" style="width: 100%; border-collapse: collapse; display: none; margin-top: 10px;">
+                    <thead>
+                        <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #475569; font-size: 14px;">
+                            <th style="padding: 12px; text-align: left;">#</th>
+                            <th style="padding: 12px; text-align: left;">Name</th>
+                            <th style="padding: 12px; text-align: left;">Email</th>
+                            <th style="padding: 12px; text-align: left;">Phone</th>
+                            <th style="padding: 12px; text-align: left;">Class</th>
+                            <th style="padding: 12px; text-align: left;">Message</th>
+                            <th style="padding: 12px; text-align: left;">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="enquiriesBody"></tbody>
+                </table>
+            </div>
+        </section>
+
+
         <!-- LOGOUT -->
 
         <button
             class="logout-button"
             onclick="logout()"
+            style="margin-top: 30px;"
         >
 
             Logout
@@ -139,13 +177,68 @@
 
     <script>
 
-        function logout() {
+        async function loadEnquiries() {
+            const statusDiv = document.getElementById("enquiriesStatus");
+            const table = document.getElementById("enquiriesTable");
+            const tbody = document.getElementById("enquiriesBody");
+            if (!tbody) return;
 
-            alert("Logged out successfully!");
+            statusDiv.style.display = "block";
+            statusDiv.textContent = "Fetching enquiries...";
+            table.style.display = "none";
+            tbody.innerHTML = "";
 
-            window.location.href = "login.html";
+            try {
+                const response = await fetch("/api/enquiries");
+                const data = await response.json();
 
+                if (!data.success || !data.enquiries || data.enquiries.length === 0) {
+                    statusDiv.textContent = "No admission enquiries received yet.";
+                    return;
+                }
+
+                statusDiv.style.display = "none";
+                table.style.display = "table";
+
+                data.enquiries.forEach((item, index) => {
+                    const row = document.createElement("tr");
+                    row.style.borderBottom = "1px solid #f1f5f9";
+                    const dateStr = item.created_at ? new Date(item.created_at).toLocaleDateString() : "-";
+
+                    row.innerHTML = `
+                        <td style="padding: 12px; color: #64748b; font-weight: bold;">${index + 1}</td>
+                        <td style="padding: 12px; font-weight: 600; color: #1e293b;">${escapeHtml(item.name)}</td>
+                        <td style="padding: 12px; color: #2563eb;"><a href="mailto:${escapeHtml(item.email)}" style="color: #2563eb; text-decoration: none;">${escapeHtml(item.email)}</a></td>
+                        <td style="padding: 12px; color: #334155;">📞 ${escapeHtml(item.phone)}</td>
+                        <td style="padding: 12px;"><span style="background: #e0e7ff; color: #3730a3; padding: 3px 8px; border-radius: 6px; font-size: 13px; font-weight: 600;">${escapeHtml(item.grade || 'General')}</span></td>
+                        <td style="padding: 12px; color: #475569; max-width: 250px;">${escapeHtml(item.message || '-')}</td>
+                        <td style="padding: 12px; color: #94a3b8; font-size: 13px;">${dateStr}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            } catch (err) {
+                console.error("Failed to load enquiries:", err);
+                statusDiv.textContent = "Could not load enquiries. Server may be starting up.";
+            }
         }
+
+        function escapeHtml(text) {
+            if (!text) return "";
+            const div = document.createElement("div");
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function logout() {
+            localStorage.removeItem("smartSchoolToken");
+            localStorage.removeItem("smartSchoolUser");
+            alert("Logged out successfully!");
+            window.location.href = "login.html";
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            loadEnquiries();
+        });
 
     </script>
 
